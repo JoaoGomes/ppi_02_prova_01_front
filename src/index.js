@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import WebRoutes from './componentes/Routes';
-import { AuthProvider } from './context/Auth';
+import WebRoutes from './routes/index';
+import { AuthProvider } from './componentes/context/Auth';
 
 ReactDOM.render(
   <React.StrictMode>
-        <AuthProvider>
-          <WebRoutes />
-        </AuthProvider>
+    <AuthProvider>
+      <WebRoutes />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

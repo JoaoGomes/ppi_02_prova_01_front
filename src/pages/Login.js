@@ -1,28 +1,54 @@
-import axios from 'axios';
+import React, { useReducer } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../componentes/context/Auth';
+import Access_user from '../pages/Access';
 
-const api = axios.create({
-    baseURL: 'http://localhost:3000',
-});
-
-async function Access_user(data){
-    
-    // Necessário uso de try-catch para caso senha informada seja errada
-    try{
-        await axios({
-            url: 'http://localhost:3000/login',
-            method: 'POST',
-            data: data
-        })
-        .then(res=>{
-            localStorage.setItem('@App:user', JSON.stringify(res.data.user));
-            localStorage.setItem('@App:accessToken', res.data.accessToken);
-                
-            api.defaults.headers.Authorization = `Bearer ${res.data.accessToken}`;
-        });
-    } catch (error){ 
-        console.log(error)
-    }
-
+const initialState = {
+    id: '',
+    senha: '',
 }
 
-export default Access_user;
+function reducer (state, {field, value}){
+    return {
+        ...state, 
+        [field]: value
+    }
+}
+
+function FormLogin () {
+
+    const context = useAuth();
+
+    const [state, dispatch] = useReducer (reducer, initialState);
+    const onChange = (e) => {
+        dispatch({field: e.target.name, value: e.target.value})
+    }
+
+    const {id, senha} = state;
+
+    function handleSubmit (event) {
+        event.preventDefault();
+        Access_user(state);    
+        context.Login();
+    }
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}  className="form-box">
+                <h1 className="form-title">Login</h1>
+                <label>Nome
+                    <input  type='text' name='id' defaultValue={id} onChange={onChange} />
+                </label>
+                <label>Senha: 
+                    <input  type='password' name='senha' defaultValue={senha} onChange={onChange} />
+                </label>
+                <Link type="submit" onClick={handleSubmit} className="btn btn-success" to="/">
+                    Acessar
+                </Link>
+            </form>
+            <Link className="btn mainMenuBtn" to="/">Página inicial</Link>
+        </div>
+    );
+};
+
+export default FormLogin;
