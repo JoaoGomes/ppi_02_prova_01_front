@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
         api.defaults.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
         localStorage.setItem('@App:user', JSON.stringify(response.data.user));
+        localStorage.setItem('@App:id', JSON.stringify(response.data.id));
         localStorage.setItem('@App:accessToken', response.data.accessToken);
 
         //setUser(localStorage.getItem('@App:user'));
@@ -24,11 +25,13 @@ export const AuthProvider = ({ children }) => {
     function Logout() {
         setUser(null);
         localStorage.removeItem('@App:user');
+        localStorage.removeItem('@App:id');
         localStorage.removeItem('@App:accessToken');
     }
 
     useEffect(() => {
         const storagedUser = localStorage.getItem('@App:user');
+        const storagedId = localStorage.getItem('@App:id');
         const storagedToken = localStorage.getItem('@App:token');
         if (storagedToken && storagedUser) {
             setUser(JSON.parse(storagedUser));

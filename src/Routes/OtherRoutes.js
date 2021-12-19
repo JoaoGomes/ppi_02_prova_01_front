@@ -6,6 +6,10 @@ import About from '../pages/About';
 import Producer from '../pages/Producer';
 import Deletar from '../pages/Deletar';
 import CreateProducer from '../pages/CreateProducer';
+import CreateCost from '../pages/CreateCost';
+import DeletarCusto from '../pages/DeletarCusto';
+import CreateProduction from '../pages/CreateProduction';
+import DeletarProducao from '../pages/DeletarProducao';
 
 
 const OtherRoutes = () => {
@@ -17,6 +21,10 @@ const OtherRoutes = () => {
                 <Route path="/producer" element={<Producer/>} /> 
                 <Route path="/cadastro" element={<CreateProducer/>} />
                 <Route path="/deletar" element={<Deletar/>} />
+                <Route path="/custo/create" element={<CreateCost/>} />
+                <Route path="/custo/deletar" element={<DeletarCusto/>} />
+                <Route path="/producao/create" element={<CreateProduction/>} />
+                <Route path="/producao/deletar" element={<DeletarProducao/>} />
 
             </Routes>
         </BrowserRouter>

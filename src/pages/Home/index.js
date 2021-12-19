@@ -17,7 +17,11 @@ const Home = () => {
             <button onClick={handleLogout}>Logout</button>
             <p>Outras rotas</p>
             <label><Link className="btn btn-success" to="/cadastro">Adicionar produtor</Link></label><br/>
-            <label><Link className="btn btn-success" to="/deletar">Remover produtor</Link></label>
+            <label><Link className="btn btn-success" to="/deletar">Remover produtor</Link></label><br/>
+            <label><Link className="btn btn-success" to="/custo/create">Adicionar custo</Link></label><br/>
+            <label><Link className="btn btn-success" to="/custo/deletar">Remover custo</Link></label><br/>
+            <label><Link className="btn btn-success" to="/producao/create">Adicionar produção</Link></label><br/>
+            <label><Link className="btn btn-success" to="/producao/deletar">Remover produção</Link></label><br/>
         </div>
     );
 };

@@ -24,7 +24,7 @@ function Deletar () {
     function handleSubmit (event) {
         event.preventDefault();
         axios({
-            url: 'http://localhost:3333/produtores/' + id,
+            url: 'http://localhost:3333/custo/' + id,
             method: 'DELETE',
         })
         .then(res=>console.log(res));
@@ -33,7 +33,7 @@ function Deletar () {
     return (
         <div>
             <form className="form-title">
-                REMOÇÃO DE PRODUTOR
+                REMOÇÃO DE CUSTO
             </form>
             <form onSubmit={handleSubmit} className="form-box">
                 <label>Id: 
