@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Producer from '../pages/Producer';
-import Deletar from '../pages/Deletar';
-import CreateProducer from '../pages/CreateProducer';
+import Home from '../Home/Home';
+import About from '../About';
+import Producer from '../Producer';
+import Deletar from '../Deletar';
+import CreateProducer from '../CreateProducer';
 
 const OtherRoutes = () => {
     return (

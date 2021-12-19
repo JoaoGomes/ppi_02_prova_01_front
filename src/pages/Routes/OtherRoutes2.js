@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
+import Home from '../Home/Home';
+import Login from '../Login2';
 
 const SignRoutes = () => {
     return (

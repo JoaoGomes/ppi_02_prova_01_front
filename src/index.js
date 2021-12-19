@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import WebRoutes from './routes/index';
+import WebRoutes from './pages/Routes/index';
 import { AuthProvider } from './componentes/context/Auth';
 
 ReactDOM.render(

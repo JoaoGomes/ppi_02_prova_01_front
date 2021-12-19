@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../componentes/context/Auth';
-import Access_user from '../pages/Access';
+import Access_user from './Access';
 
 const initialState = {
     id: '',
