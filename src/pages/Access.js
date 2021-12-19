@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3333',
 });
 
 async function Access_user(data){
@@ -9,7 +9,7 @@ async function Access_user(data){
     // Necessário uso de try-catch para caso senha informada seja errada
     try{
         await axios({
-            url: 'http://localhost:3000/login',
+            url: 'http://localhost:3333/login',
             method: 'POST',
             data: data
         })

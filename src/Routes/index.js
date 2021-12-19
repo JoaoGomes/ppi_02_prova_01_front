@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useAuth } from '../componentes/context/Auth';
+
 import SignRoutes from './SignRoutes';
+import OtherRoutes from './OtherRoutes';
 
 const Rotas = () => {
-    return <SignRoutes />;
+    const { signed } = useAuth();
+    return signed ? <OtherRoutes/> : <SignRoutes />;
 };
 
 export default Rotas;

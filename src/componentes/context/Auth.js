@@ -1,19 +1,24 @@
 import { useState, createContext, useContext, useEffect } from 'react';
-import axios from 'axios';
-
-const api = axios.create({
-    baseURL: 'http://localhost:3000',
-});
+import api from '../services/api';
 
 const AuthContext = createContext({});
-
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     async function Login(data) {
-        setUser(localStorage.getItem('@App:user'));
-        api.defaults.headers.Authorization = `Bearer ${localStorage.getItem('@App:token')}`;
+        const response = await api.post('/login', {
+            id: data.id, senha: data.senha
+        });
+        console.log(response);
+        setUser(response.data.user);
+        api.defaults.headers.Authorization = `Bearer ${response.data.accessToken}`;
+
+        localStorage.setItem('@App:user', JSON.stringify(response.data.user));
+        localStorage.setItem('@App:accessToken', response.data.accessToken);
+
+        //setUser(localStorage.getItem('@App:user'));
+        //api.defaults.headers.Authorization = `Bearer ${localStorage.getItem('@App:token')}`;
     }
 
     function Logout() {
@@ -30,7 +35,6 @@ export const AuthProvider = ({ children }) => {
             api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
         }
     }, []);
-
 
     return (
         <AuthContext.Provider value={{ signed: Boolean(user), user, Login, Logout }}>

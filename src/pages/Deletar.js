@@ -24,7 +24,7 @@ function Deletar () {
     function handleSubmit (event) {
         event.preventDefault();
         axios({
-            url: 'http://localhost:3000/produtores/' + id,
+            url: 'http://localhost:3333/produtores/' + id,
             method: 'DELETE',
         })
         .then(res=>console.log(res));

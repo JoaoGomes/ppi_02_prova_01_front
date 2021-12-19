@@ -8,6 +8,7 @@ import axios from 'axios';
 const initialState = {
     nome: '',
     senha: '',
+    role: '',
 }
 
 function reducer (state, {field, value}){
@@ -19,21 +20,19 @@ function reducer (state, {field, value}){
 
 function CreateProducer () {
     const [state, dispatch] = useReducer (reducer, initialState);
-    //const history = useNavigate();
-    //const notify = () => toast("Wow so easy!");
     
     const onChange = (e) => {
         dispatch({field: e.target.name, value: e.target.value})
     }
 
-    const {nome, senha} = state;
+    const {nome, senha, role} = state;
 
     function handleSubmit (event) {
         
         event.preventDefault();
         console.log(state);
         axios({
-            url: 'http://localhost:3000/create',
+            url: 'http://localhost:3333/create',
             method: 'POST',
             data: state
         })
@@ -54,6 +53,10 @@ function CreateProducer () {
                 <label>
                     Senha:
                     <input type='password' name='senha' defautlValue={senha} onChange={onChange} />
+                </label>
+                <label>
+                    Papel:
+                    <input type='text' name='role' defautlValue={role} onChange={onChange} />
                 </label>
 
                 <Link push to="/" className="btn btn-success" type="submit" onClick={handleSubmit} >
