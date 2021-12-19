@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+const id_dono_atual = JSON.parse(localStorage.getItem(`@App:id`));
 const initialState = {
     quantidade: '',
     valor: '',
@@ -74,4 +75,4 @@ function CreateProduction () {
     );
 };
 
-export default CreateCost;
+export default CreateProduction;

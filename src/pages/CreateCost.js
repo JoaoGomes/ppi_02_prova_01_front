@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, componentDidMount } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,8 +12,9 @@ const initialState = {
     id_dono: localStorage.getItem(`@App:id`),
 }
 
-//const store = createStore(mainReducer, initialState);
-
+//componentDidMount = () => {
+//    this.getBlogPost();
+//};
 
 function reducer (state, {field, value}){
     return {
@@ -24,7 +25,28 @@ function reducer (state, {field, value}){
 
 function CreateCost () {
     const [state, dispatch] = useReducer (reducer, initialState);
-    //const [finalState, setState] = useState(state);
+    const [teste, setState] = useState();
+
+    // const getBlogPost = () => {
+    // axios({
+    //     url: 'http://localhost:3333/custo/all',
+    //     method: 'GET'
+    // })
+    // .then(res=>{
+    //     setState({ posts: res.data});
+    //     console.log(teste);})
+    // .catch(()=>console.log("Problemas2"));
+    // };
+
+    // const displayBlogPost = (posts) => {
+    //     if(!posts.length) return null;
+    //     posts.map((post) => {
+    //         <div>
+    //             <h3>{post.nome}</h3>
+    //             <p>{post.valor}</p>
+    //         </div>
+    //     })
+    // }
 
     const onChange = (e) => {
         dispatch({field: e.target.name, value: e.target.value})
@@ -76,7 +98,13 @@ function CreateCost () {
                 </Link>
 
             </form>
+
+            <div className='blogpost'>
+                {/*this.displayBlogPost(this.state.posts)*/}
+                <p>Temos que colocar algo aqui</p>
+            </div>
             <Link to="/" className="btn mainMenuBtn" >Menu principal</Link>
+
         </div>
     );
 };
