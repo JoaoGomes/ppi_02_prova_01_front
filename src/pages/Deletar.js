@@ -43,7 +43,7 @@ function Deletar () {
                     Deletar
                 </Link>
             </form>
-            <Link className="btn mainMenuBtn" to="/">Menu principal</Link>
+            <Link className="btn mainMenuBtn" to="/login/empregado">Menu principal</Link>
         </div>
     );
 };

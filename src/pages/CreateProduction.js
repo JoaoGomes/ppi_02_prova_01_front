@@ -53,6 +53,10 @@ function CreateProduction () {
             </form>
             <form onSubmit={handleSubmit} className="form-box">
                 <label>
+                    Cooperado: 
+                    <p>Drop down aqui </p>
+                </label>
+                <label>
                     Quantidade: 
                     <input  type='number' name='quantidade' defaultValue={quantidade} onChange={onChange} />
                 </label>
@@ -60,9 +64,12 @@ function CreateProduction () {
                     Valor:
                     <input type='number' name='valor' defaultValue={valor} onChange={onChange} />
                 </label>
-                <label>
-                    Pago:
-                    <input type='boolean' name='status' onChange={onChange}/>
+                <label >Pagamento: 
+                    <select className="status" name='status' defaultValue={false} onChange={onChange}>
+                        <option value="false">Não efetuado</option>
+                        <option value="true">Efetuado</option>
+
+                    </select>
                 </label>
 
                 <Link push to="/" className="btn btn-success" type="submit" onClick={handleSubmit} >
@@ -70,7 +77,7 @@ function CreateProduction () {
                 </Link>
 
             </form>
-            <Link to="/" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/empregado" className="btn mainMenuBtn" >Menu principal</Link>
         </div>
     );
 };

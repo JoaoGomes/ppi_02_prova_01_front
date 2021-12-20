@@ -64,7 +64,7 @@ function CreateProducer () {
                 </Link>
 
             </form>
-            <Link to="/" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/empregado" className="btn mainMenuBtn" >Menu principal</Link>
         </div>
     );
 };

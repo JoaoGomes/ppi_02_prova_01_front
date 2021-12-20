@@ -103,7 +103,7 @@ function CreateCost () {
                 {/*this.displayBlogPost(this.state.posts)*/}
                 <p>Temos que colocar algo aqui</p>
             </div>
-            <Link to="/" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
 
         </div>
     );

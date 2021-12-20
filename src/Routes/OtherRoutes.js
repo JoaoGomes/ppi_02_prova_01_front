@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from '../pages/Home';
+import HomeCooperado from '../pages/Home/HomeCooperado';
+import HomeEmpregado from '../pages/Home/HomeEmpregado';
 import About from '../pages/About';
 import Producer from '../pages/Producer';
 import Deletar from '../pages/Deletar';
@@ -17,6 +19,9 @@ const OtherRoutes = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>} />
+                <Route path="/login/cooperado" element={<HomeCooperado/>} />
+                <Route path="/login/empregado" element={<HomeEmpregado/>} />
+                <Route path="/perfil" element={<Producer />} />
                 <Route path="/about" element={<About/>} />
                 <Route path="/producer" element={<Producer/>} /> 
                 <Route path="/cadastro" element={<CreateProducer/>} />
