@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import api from '../services/api';
+import history from '../services/history';
 
 const AuthContext = createContext({});
 
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ signed: Boolean(user), user, Login, Logout }}>
+        <AuthContext.Provider value={{ signed: Boolean(user), user, Login, Logout }}  history={history}>
             {children}
         </AuthContext.Provider>
     );

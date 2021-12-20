@@ -1,25 +1,3 @@
-/*import React, { useContext } from 'react';
-import { useAuth } from '../../componentes/context/Auth';
-
-const Login = () => {
-    const context = useAuth();
-    console.log(context);
-    
-    function handleLogin() {
-        context.Login();
-    };
-
-    return (
-        <div>
-            <h1>Página inicial</h1>
-            <h2>Entre com seu ID e senha</h2>
-            <button onClick={handleLogin}>Login</button>
-        </div>
-    );
-};
-
-export default Login;*/
-
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../componentes/context/Auth';

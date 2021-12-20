@@ -21,6 +21,9 @@ const HomeCooperado = () => {
             <label><Link className="btn btn-success" to="/custo/deletar">Remover custo</Link></label><br/>
             <label><Link className="btn btn-success" to="/login/cooperado">Producão (inativo)</Link></label><br/>
             <label><Link className="btn btn-success" to="/login/cooperado">Relatórios (inativo)</Link></label><br/>
+            <label><Link className="btn btn-success" to="/teste/create">TESTE CREATE</Link></label><br/>
+            <label><Link className="btn btn-success" to="/teste/create/produtor">TESTE Produtor</Link></label><br/>
+            <label><Link className="btn btn-success" to="/teste/custos">TESTE Mostrar Custos</Link></label><br/>
         </div>
     );
 };

@@ -13,7 +13,7 @@ function reducer (state, {field, value}){
     }
 }
 
-function Deletar () {
+function DeletarProducao () {
     const [state, dispatch] = useReducer (reducer, initialState);
     const onChange = (e) => {
         dispatch({field: e.target.name, value: e.target.value})
@@ -48,4 +48,4 @@ function Deletar () {
     );
 };
 
-export default Deletar;
+export default DeletarProducao;

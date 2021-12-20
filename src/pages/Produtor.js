@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../componentes/context/Auth';
 
 
-function Producer() {
+function Produtor() {
     const { Logout } = useAuth();
 
     async function handleLogout() {
@@ -21,4 +21,4 @@ function Producer() {
     );
 }
 
-export default Producer;
+export default Produtor;

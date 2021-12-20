@@ -1,14 +1,10 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-//import { ToastContainer, toast, Slide } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
-
 
 const initialState = {
     nome: '',
     senha: '',
-    role: '',
 }
 
 function reducer (state, {field, value}){
@@ -18,14 +14,14 @@ function reducer (state, {field, value}){
     }
 }
 
-function CreateProducer () {
+function CreateProdutor () {
     const [state, dispatch] = useReducer (reducer, initialState);
     
     const onChange = (e) => {
         dispatch({field: e.target.name, value: e.target.value})
     }
 
-    const {nome, senha, role} = state;
+    const {nome, senha} = state;
 
     function handleSubmit (event) {
         
@@ -43,7 +39,7 @@ function CreateProducer () {
     return (
         <div>
             <form className="form-title">
-                    REGISTRO DO PRODUTOR
+                    REGISTRO DE PRODUTOR
             </form>
             <form onSubmit={handleSubmit} className="form-box">
                 <label>
@@ -53,10 +49,6 @@ function CreateProducer () {
                 <label>
                     Senha:
                     <input type='password' name='senha' defautlValue={senha} onChange={onChange} />
-                </label>
-                <label>
-                    Papel:
-                    <input type='text' name='role' defautlValue={role} onChange={onChange} />
                 </label>
 
                 <Link push to="/" className="btn btn-success" type="submit" onClick={handleSubmit} >
@@ -69,4 +61,4 @@ function CreateProducer () {
     );
 };
 
-export default CreateProducer;
+export default CreateProdutor;
