@@ -8,13 +8,15 @@ import About from '../pages/About';
 import Produtor from '../pages/Produtor';
 import CreateProdutor from '../pages/CreateProdutor';
 import DeletarProdutor from '../pages/DeletarProdutor';
-import CreateCusto from '../pages/CreateCusto';
+
 import DeletarCusto from '../pages/DeletarCusto';
 import CreateProducao from '../pages/CreateProducao';
 import DeletarProducao from '../pages/DeletarProducao';
 import TesteCreateCusto from '../pages/TesteCreateCusto';
 import TesteCreateProdutor from '../pages/TesteCreateProdutor';
+
 import MostrarCustos from '../pages/MostrarCustos';
+import MostrarProducao from '../pages/MostrarProducao';
 
 
 const OtherRoutes = () => {
@@ -29,13 +31,14 @@ const OtherRoutes = () => {
                 <Route path="/producer" element={<Produtor/>} /> 
                 <Route path="/cadastro" element={<CreateProdutor/>} />
                 <Route path="/deletar" element={<DeletarProdutor/>} />
-                <Route path="/custo/create" element={<CreateCusto/>} />
                 <Route path="/custo/deletar" element={<DeletarCusto/>} />
                 <Route path="/producao/create" element={<CreateProducao/>} />
                 <Route path="/producao/deletar" element={<DeletarProducao/>} />
                 <Route path="/teste/create" element={<TesteCreateCusto />} />
                 <Route path="/teste/create/produtor" element={<TesteCreateProdutor />} />
+
                 <Route path="/custo/all" element={<MostrarCustos />} />
+                <Route path="/producao/all" element={<MostrarProducao />} />
 
             </Routes>
         </BrowserRouter>

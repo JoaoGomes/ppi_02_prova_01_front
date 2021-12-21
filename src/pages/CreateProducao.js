@@ -1,84 +1,125 @@
-import React, { useReducer } from 'react';
+import axios from "axios";
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-const id_dono_atual = JSON.parse(localStorage.getItem(`@App:id`));
-const initialState = {
-    quantidade: '',
-    valor: '',
-    status: 'false',
-    id_dono: localStorage.getItem(`@App:id`),
-}
+export default class CreateProducao extends Component {
+    constructor(props) {
+        super(props);
 
+        this.onChangeQuantidade = this.onChangeQuantidade.bind(this);
+        this.onChangeValor = this.onChangeValor.bind(this);
+        this.onChangeStatus = this.onChangeStatus.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
-function reducer (state, {field, value}){
-    return {
-        ...state, 
-        [field]: value
-    }
-}
-
-function CreateProducao () {
-    const [state, dispatch] = useReducer (reducer, initialState);
-
-    const onChange = (e) => {
-        dispatch({field: e.target.name, value: e.target.value})
+        this.state = {
+            quantidade: '',
+            valor: '',
+            status: 'false',
+            id_dono: localStorage.getItem(`@App:id`),
+            producoes: [],
+        }
     }
 
-    const {quantidade, valor, status} = state;
+    onChangeQuantidade(e) {
+        this.setState({
+            quantidade: e.target.value
+        });
+    }
 
-    function handleSubmit (event) {
-        event.preventDefault();
-        event.onUpdateItem = () =>{
-            this.setState(state => {
-                const finalState = state.id_dono.map((id_dono) =>{
-                    return id_dono_atual;
-                })
-            })
-        };
+    onChangeValor(e) {
+        this.setState({
+            valor: e.target.value
+        });
+    }
 
-        console.log(`Estado atual: ${state.id_dono}`);
+    onChangeStatus(e) {
+        this.setState({
+            status: e.target.value
+        });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        const producao = {
+            quantidade: this.state.quantidade,
+            valor: this.state.valor,
+            status: this.state.status,
+            id_dono: this.state.id_dono,
+        }
+
         axios({
             url: 'http://localhost:3333/producao/create',
             method: 'POST',
-            data: state
+            data: producao
         })
-        .then(res=>console.log(res));
+        .then(() => {
+            this.updatePage();
+        })
+        .catch(() => { console.log("Erro ao criar custo.")});
+
+        this.setState({
+            quantidade: '',
+            valor: '',
+            status: 'false',
+            id_dono: localStorage.getItem(`@App:id`),
+        })
     }
 
-    return (
-        <div>
-            <form className="form-title">
-                REGISTRO DE CUSTO
-            </form>
-            <form onSubmit={handleSubmit} className="form-box">
-                <label>
-                    Cooperado: 
-                    <p>Drop down aqui </p>
-                </label>
-                <label>
-                    Quantidade: 
-                    <input  type='number' name='quantidade' defaultValue={quantidade} onChange={onChange} />
-                </label>
-                <label>
-                    Valor:
-                    <input type='number' name='valor' defaultValue={valor} onChange={onChange} />
-                </label>
-                <label >Pagamento: 
-                    <select className="status" name='status' defaultValue={false} onChange={onChange}>
-                        <option value="false">Não efetuado</option>
-                        <option value="true">Efetuado</option>
-                    </select>
-                </label>
+    componentDidMount = () => {
+        this.updatePage();
+    }
 
-                <Link push to="/" className="btn btn-success" type="submit" onClick={handleSubmit} >
-                    Adicionar
-                </Link>
+    updatePage = () => {
+        axios.get('http://localhost:3333/producao/all')
+        .then(response => {
+            if(response.data.length > 0){
+                this.setState({ producoes: response.data
+                })
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
-            </form>
-            <Link to="/login/empregado" className="btn mainMenuBtn" >Menu principal</Link>
-        </div>
-    );
-};
+    render() {
+        return (
+            <div>
+            <h3>Produção</h3>
+                <h2>Cadastrar Nova Produção</h2>
+                <form onSubmit={this.onSubmit}>
+                    <div className="form-group"> 
+                    <label>Quantidade: </label>
+                    <input  type="text"
+                        required
+                        className="form-control"
+                        value={this.state.quantidade}
+                        onChange={this.onChangeQuantidade}
+                        />
+                    </div>
+                    <div className="form-group"> 
+                    <label>Valor: </label>
+                    <input  type="number"
+                        required
+                        className="form-control"
+                        value={this.state.valor}
+                        onChange={this.onChangeValor}
+                        />
+                    </div>
+                    <div className="form-group">
+                    Pagamento:
+                        <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
+                            <option value="false">Não efetuado</option>
+                            <option value="true">Efetuado</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                    <input type="submit" value="Adicionar produção" className="btn btn-primary" />
+                    </div>
+                </form>
 
-export default CreateProducao;
+            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+            </div>
+        )
+    }
+}
