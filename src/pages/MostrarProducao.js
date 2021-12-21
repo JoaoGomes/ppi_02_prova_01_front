@@ -45,6 +45,21 @@ export default class MostrarProducao extends Component {
         ));
       }
 
+      resumoProducao = (producoes) => {
+        const totalQuantidade = producoes.reduce((total, item) => total = total + item.quantidade, 0);
+
+        const totalValor =  producoes.reduce((total, item) => total = total + item.valor, 0);
+
+        return (
+            <tbody>
+                <tr>
+                    <td>{totalQuantidade}</td>
+                    <td>{totalValor}</td>
+                </tr>
+            </tbody>
+        )
+      }
+
     render() {
         return (
             <div>
@@ -59,6 +74,15 @@ export default class MostrarProducao extends Component {
                         </tr>
                     </thead>
                         {this.listaProducao(this.state.producoes)}
+                </table>
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>Quantidade total</th>
+                            <th>Valor total</th>
+                        </tr>
+                    </thead>
+                        {this.resumoProducao(this.state.producoes)}
                 </table>
 
             <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>

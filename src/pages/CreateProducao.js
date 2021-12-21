@@ -118,7 +118,7 @@ export default class CreateProducao extends Component {
                     </div>
                 </form>
 
-            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/Empregado" className="btn mainMenuBtn" >Menu principal</Link>
             </div>
         )
     }

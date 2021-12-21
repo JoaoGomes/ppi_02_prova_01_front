@@ -74,7 +74,7 @@ export default class MostrarCustos extends Component {
             nome: '',
             valor: '',
             status: 'false',
-            id_dono: localStorage.getItem(`@App:id`),
+            id_dono: JSON.parse(localStorage.getItem(`@App:id`)),
         })
     }
 
@@ -83,7 +83,7 @@ export default class MostrarCustos extends Component {
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/custo/all')
+        axios.get('http://localhost:3333/custo/'+ localStorage.getItem(`@App:id`))
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ custos: response.data
@@ -110,6 +110,31 @@ export default class MostrarCustos extends Component {
         ));
       }
 
+      resumoCustos = (custos) => {
+        const totalPago = custos.reduce((total, item) => {
+            if(item.status)
+                total = total + item.valor;
+            return total;
+        }, 0);
+
+        const totalNaoPago = custos.reduce((total, item) => {
+            if(!item.status)
+                total = total + item.valor;
+            return total;
+        }, 0);
+
+        return (
+            <tbody>
+                <tr>
+                    <td>{custos.length}</td>
+                    <td>{totalPago}</td>
+                    <td>{totalNaoPago}</td>
+                    <td>{totalPago+totalNaoPago}</td>
+                </tr>
+            </tbody>
+        )
+      }
+
     render() {
         return (
             <div>
@@ -124,6 +149,18 @@ export default class MostrarCustos extends Component {
                         </tr>
                     </thead>
                         {this.listaCusto(this.state.custos)}
+                </table>
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>Total de itens</th>
+                            <th>Valores pagos</th>
+                            <th>Valores não pagos</th>
+                            <th>Total de custos</th>
+                        </tr>
+                    </thead>
+                        {this.resumoCustos(this.state.custos)}    
+
                 </table>
 
             <h2>Cadastrar Novo Custo</h2>

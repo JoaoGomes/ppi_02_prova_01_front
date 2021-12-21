@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         api.defaults.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
         localStorage.setItem('@App:user', JSON.stringify(response.data.user));
-        localStorage.setItem('@App:id', JSON.stringify(response.data.id));
+        localStorage.setItem('@App:id', response.data.id);
         localStorage.setItem('@App:accessToken', response.data.accessToken);
 
         //setUser(localStorage.getItem('@App:user'));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Home from '../pages/Home';
 import HomeCooperado from '../pages/Home/HomeCooperado';
 import HomeEmpregado from '../pages/Home/HomeEmpregado';
 import About from '../pages/About';
@@ -23,7 +22,6 @@ const OtherRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home/>} />
                 <Route path="/login/cooperado" element={<HomeCooperado/>} />
                 <Route path="/login/empregado" element={<HomeEmpregado/>} />
                 <Route path="/perfil" element={<Produtor />} />
