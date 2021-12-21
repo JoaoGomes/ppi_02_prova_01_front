@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
-const Custo = props =>{
+const Custo = props => {
     <tr>
         <td>{props.custo.nome}</td>
         <td>{props.custo.valor}</td>
@@ -26,17 +26,25 @@ export default class MostrarCustos extends Component {
             if(response.data.length > 0){
                 this.setState({ custos: response.data
                 })
-                .catch((error) => {
-                    console.log(error);
-                })
             }
         })
+        .catch((error) => {
+            console.log(error);
+        })
+
     }
 
-    listaCusto() {
-        return this.state.custos.map(custoatual => {
-          return <Custo custo={custoatual} key={custoatual._id}/>;
-        })
+    listaCusto = (custos) => {
+        if(!custos.length) return null;
+        return custos.map((custoatual, index) => (
+            <tbody key={index}>
+                <tr>
+                    <td>{custoatual.nome}</td>
+                    <td>{custoatual.valor}</td>
+                    <td>{custoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                </tr>
+            </tbody>
+        ));
       }
 
     render() {
@@ -52,9 +60,7 @@ export default class MostrarCustos extends Component {
                             <th>Status de Pagamento</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        { this.listaCusto() }
-                    </tbody>
+                        {this.listaCusto(this.state.custos)}
                 </table>
             <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
 

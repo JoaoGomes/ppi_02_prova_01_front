@@ -35,7 +35,7 @@ const OtherRoutes = () => {
                 <Route path="/producao/deletar" element={<DeletarProducao/>} />
                 <Route path="/teste/create" element={<TesteCreateCusto />} />
                 <Route path="/teste/create/produtor" element={<TesteCreateProdutor />} />
-                <Route path="/teste/custos" element={<MostrarCustos />} />
+                <Route path="/custo/all" element={<MostrarCustos />} />
 
             </Routes>
         </BrowserRouter>
