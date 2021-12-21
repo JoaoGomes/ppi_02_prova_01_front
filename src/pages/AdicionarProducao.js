@@ -1,29 +1,33 @@
 import axios from "axios";
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import { Link } from 'react-router-dom';
 
-export default class MostrarCustos extends Component {
+export default class AdicionarProducao extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeNome = this.onChangeNome.bind(this);
+        this.onChangeQuantidade = this.onChangeQuantidade.bind(this);
         this.onChangeValor = this.onChangeValor.bind(this);
         this.onChangeStatus = this.onChangeStatus.bind(this);
-        this.deleteCusto = this.deleteCusto.bind(this)
+        this.onChangeCooperado = this.onChangeCooperado.bind(this);
+        this.deleteProducao = this.deleteProducao.bind(this)
         this.onSubmit = this.onSubmit.bind(this);
-
+        
         this.state = {
-            nome: '',
+            quantidade: '',
             valor: '',
             status: 'false',
-            id_dono: localStorage.getItem(`@App:id`),
-            custos: [],
+            id_dono: '',
+            producoes: [],
+            nome: '',
+            produtores: []
         }
     }
 
-    onChangeNome(e) {
+    
+    onChangeQuantidade(e) {
         this.setState({
-            nome: e.target.value
+            quantidade: e.target.value
         });
     }
 
@@ -39,56 +43,75 @@ export default class MostrarCustos extends Component {
         });
     }
 
-    deleteCusto(id) {
-        axios.delete('http://localhost:3333/custo/'+id)
+    onChangeCooperado(e) {
+        this.setState({
+            id_dono: e.target.value
+        });
+    }
+
+
+    deleteProducao(id) {
+        axios.delete('http://localhost:3333/producao/'+id)
         .then(() => {
             this.updatePage();
         })
-        .catch(() => { console.log("Erro ao deletar custo.")});
+        .catch(() => { console.log("Erro ao deletar produção.")});
     
         this.setState({
-          custos: this.state.custos.filter(el => el._id !== id)
+          custos: this.state.producoes.filter(el => el._id !== id)
         })
       }
 
     onSubmit(e) {
         e.preventDefault();
-        const custo = {
-            nome: this.state.nome,
+        const producao = {
+            quantidade: this.state.quantidade,
             valor: this.state.valor,
             status: this.state.status,
             id_dono: this.state.id_dono,
         }
 
         axios({
-            url: 'http://localhost:3333/custo/create',
+            url: 'http://localhost:3333/producao/create',
             method: 'POST',
-            data: custo
+            data: producao
         })
         .then(() => {
             this.updatePage();
             this.resetValues();
         })
-        .catch(() => { console.log("Erro ao criar custo.")});
+        .catch(() => { console.log("Erro ao adicionar produção.")});
 
         this.setState({
-            nome: '',
+            quantidade: '',
             valor: '',
             status: 'false',
-            id_dono: JSON.parse(localStorage.getItem(`@App:id`)),
+            id_dono: ''
         })
     }
 
     componentDidMount = () => {
+        axios.get('http://localhost:3333/produtores/all')
+        .then(response => {
+          if (response.data.length > 0) {
+            this.setState({
+              produtores: response.data.map(produtor => produtor.nome),
+              nome: response.data[0].nome
+            }) 
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
         this.updatePage();
         this.resetValues();
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/custo/'+ localStorage.getItem(`@App:id`))
+        axios.get('http://localhost:3333/producao/all')
         .then(response => {
             if(response.data.length > 0){
-                this.setState({ custos: response.data
+                this.setState({ producoes: response.data
                 })
             }
         })
@@ -99,90 +122,65 @@ export default class MostrarCustos extends Component {
 
     resetValues = () =>{
         this.setState({
-            nome: '',
+            quantidade: '',
             valor: '',
             status: 'false',
-            id_dono: localStorage.getItem(`@App:id`),
+            id_dono: '',
           });
     }
 
-    listaCusto = (custos) => {
-        if(!custos.length) return null;
-        return custos.map((custoatual, index) => (
+    listaProducao = (producoes) => {
+        if(!producoes.length) return null;
+        return producoes.map((producaoatual, index) => (
             <tbody key={index}>
                 <tr>
-                    <td>{custoatual.nome}</td>
-                    <td>{custoatual.valor}</td>
-                    <td>{custoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                    <td>{producaoatual.quantidade}</td>
+                    <td>{producaoatual.valor}</td>
+                    <td>{producaoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                    <td>{producaoatual.id_dono}</td>
                     <td><button>Editar (Não funcionando!)</button></td>
-                    <td><button onClick={() => {this.deleteCusto(custoatual._id)}}>Deletar</button></td>
+                    <td><button onClick={() => {this.deleteProducao(producaoatual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>
         ));
       }
 
-      resumoCustos = (custos) => {
-        const totalPago = custos.reduce((total, item) => {
-            if(item.status)
-                total = total + item.valor;
-            return total;
-        }, 0);
-
-        const totalNaoPago = custos.reduce((total, item) => {
-            if(!item.status)
-                total = total + item.valor;
-            return total;
-        }, 0);
-
-        return (
-            <tbody>
-                <tr>
-                    <td>{custos.length}</td>
-                    <td>{totalPago}</td>
-                    <td>{totalNaoPago}</td>
-                    <td>{totalPago+totalNaoPago}</td>
-                </tr>
-            </tbody>
-        )
-      }
-
     render() {
         return (
             <div>
-            <h1>Custos</h1>
-            <h2>Lista de custos</h2>
+            <h1>Produção</h1>
+            <h2>Lista de Produções</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Nome</th>
+                            <th>Quantidade</th>
                             <th>Valor</th>
                             <th>Status de Pagamento</th>
+                            <th>Id do Produtor</th>
                         </tr>
                     </thead>
-                        {this.listaCusto(this.state.custos)}
-                </table>
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Total de itens</th>
-                            <th>Valores pagos</th>
-                            <th>Valores não pagos</th>
-                            <th>Total de custos</th>
-                        </tr>
-                    </thead>
-                        {this.resumoCustos(this.state.custos)}    
-
+                        {this.listaProducao(this.state.producoes)}
                 </table>
 
-            <h2>Cadastrar Novo Custo</h2>
+            <h2>Cadastrar Nova Produção</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                    <label>Nome: </label>
+                    <label>Produtor: </label>
                     <input  type="text"
                         required
                         className="form-control"
-                        value={this.state.nome}
-                        onChange={this.onChangeNome}
+                        DefaultValue={this.state.id_dono}
+                        onChange={this.onChangeCooperado}
+                        />
+                    </div>
+
+                    <div className="form-group"> 
+                    <label>Quantidade: </label>
+                    <input  type="text"
+                        required
+                        className="form-control"
+                        value={this.state.quantidade}
+                        onChange={this.onChangeQuantidade}
                         />
                     </div>
                     <div className="form-group"> 
@@ -195,18 +193,19 @@ export default class MostrarCustos extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    Pagamento:
+                    <label>Pagamento: </label>
                         <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
                             <option value="false">Não efetuado</option>
                             <option value="true">Efetuado</option>
                         </select>
                     </div>
+
                     <div className="form-group">
-                    <input type="submit" value="Adicionar custo" className="btn btn-primary" />
+                        <input type="submit" value="Adicionar produção" className="btn btn-primary" />
                     </div>
                 </form>
 
-            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/Empregado" className="btn mainMenuBtn" >Menu principal</Link>
             </div>
         )
     }

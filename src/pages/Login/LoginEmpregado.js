@@ -27,7 +27,7 @@ function FormLoginEmpregado () {
 
     function handleSubmit (event) {
         event.preventDefault();
-        context.Login(state);
+        context.LoginEmpregado(state);
     }
 
     return (

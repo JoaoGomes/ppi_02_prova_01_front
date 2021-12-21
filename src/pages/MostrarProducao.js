@@ -20,7 +20,7 @@ export default class MostrarProducao extends Component {
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/producao/all')
+        axios.get('http://localhost:3333/producao/'+ localStorage.getItem(`@App:id`))
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ producoes: response.data
@@ -63,13 +63,13 @@ export default class MostrarProducao extends Component {
     render() {
         return (
             <div>
-            <h3>Custos</h3>
-            <h2>Lista de custos</h2>
+            <h1>Produção</h1>
+            <h2>{localStorage.getItem(`@App:user`)}</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Quantidade</th>
-                            <th>Valor</th>
+                            <th>Quantidade (Litros)</th>
+                            <th>Valor (R$)</th>
                             <th>Status de Pagamento</th>
                         </tr>
                     </thead>
@@ -78,8 +78,8 @@ export default class MostrarProducao extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Quantidade total</th>
-                            <th>Valor total</th>
+                            <th>Quantidade total (Litros)</th>
+                            <th>Valor total (R$)</th>
                         </tr>
                     </thead>
                         {this.resumoProducao(this.state.producoes)}

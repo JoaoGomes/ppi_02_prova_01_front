@@ -27,7 +27,7 @@ function FormLoginCooperado () {
 
     function handleSubmit (event) {
         event.preventDefault();
-        context.Login(state);
+        context.LoginCooperado(state);
     }
 
     return (
