@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component, useRef } from "react";
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
 export default class AdicionarProducao extends Component {
@@ -131,6 +131,7 @@ export default class AdicionarProducao extends Component {
 
     listaProducao = (producoes) => {
         if(!producoes.length) return null;
+        console.log(producoes);
         return producoes.map((producaoatual, index) => (
             <tbody key={index}>
                 <tr>
@@ -145,23 +146,25 @@ export default class AdicionarProducao extends Component {
         ));
       }
 
+
+      resumoProducao = (producoes) => {
+        const totalQuantidade = producoes.reduce((total, item) => total = total + item.quantidade, 0);
+        const totalValor =  producoes.reduce((total, item) => total = total + item.valor, 0);
+
+        return (
+            <tbody>
+                <tr>
+                    <td>{totalQuantidade}</td>
+                    <td>{totalValor}</td>
+                </tr>
+            </tbody>
+        )
+      }
+
     render() {
         return (
             <div>
             <h1>Produção</h1>
-            <h2>Lista de Produções</h2>
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Quantidade</th>
-                            <th>Valor</th>
-                            <th>Status de Pagamento</th>
-                            <th>Id do Produtor</th>
-                        </tr>
-                    </thead>
-                        {this.listaProducao(this.state.producoes)}
-                </table>
-
             <h2>Cadastrar Nova Produção</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
@@ -169,13 +172,12 @@ export default class AdicionarProducao extends Component {
                     <input  type="text"
                         required
                         className="form-control"
-                        DefaultValue={this.state.id_dono}
+                        defaultValue={this.state.id_dono}
                         onChange={this.onChangeCooperado}
                         />
                     </div>
-
                     <div className="form-group"> 
-                    <label>Quantidade: </label>
+                    <label>Quantidade (litros): </label>
                     <input  type="text"
                         required
                         className="form-control"
@@ -184,7 +186,7 @@ export default class AdicionarProducao extends Component {
                         />
                     </div>
                     <div className="form-group"> 
-                    <label>Valor: </label>
+                    <label>Valor (R$): </label>
                     <input  type="number"
                         required
                         className="form-control"
@@ -204,6 +206,29 @@ export default class AdicionarProducao extends Component {
                         <input type="submit" value="Adicionar produção" className="btn btn-primary" />
                     </div>
                 </form>
+
+                <h2>Lista de Produções</h2>
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>Quantidade (litros): </th>
+                            <th>Valor (R$): </th>
+                            <th>Status de Pagamento</th>
+                            <th>Id do Produtor</th>
+                        </tr>
+                    </thead>
+                        {this.listaProducao(this.state.producoes)}
+                </table>
+
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>Quantidade total (litros): </th>
+                            <th>Valor totais(R$): </th>
+                        </tr>
+                    </thead>
+                        {this.resumoProducao(this.state.producoes)}
+                </table>
 
             <Link to="/login/Empregado" className="btn mainMenuBtn" >Menu principal</Link>
             </div>

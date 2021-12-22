@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useEffect } from 'react';
-import api from '../services/api';
+import api from '../Services/api';
 
 const AuthContext = createContext({});
 
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         const storagedUser = localStorage.getItem('@App:user');
         const storagedId = localStorage.getItem('@App:id');
         const storagedToken = localStorage.getItem('@App:token');
-        if (storagedToken && storagedUser) {
+        if (storagedToken && storagedUser && storagedId) {
             setUser(JSON.parse(storagedUser));
             api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
         }

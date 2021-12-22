@@ -37,6 +37,7 @@ export default class MostrarProducao extends Component {
         return producoes.map((producaoatual, index) => (
             <tbody key={index}>
                 <tr>
+                    <td>{index+1}</td>
                     <td>{producaoatual.quantidade}</td>
                     <td>{producaoatual.valor}</td>
                     <td>{producaoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
@@ -53,8 +54,11 @@ export default class MostrarProducao extends Component {
         return (
             <tbody>
                 <tr>
+                    <td>{producoes.length}</td>
                     <td>{totalQuantidade}</td>
+                    <td>{totalQuantidade/producoes.length}</td>
                     <td>{totalValor}</td>
+                    <td>{totalValor/producoes.length}</td>
                 </tr>
             </tbody>
         )
@@ -68,6 +72,7 @@ export default class MostrarProducao extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
+                            <th>Item</th>
                             <th>Quantidade (Litros)</th>
                             <th>Valor (R$)</th>
                             <th>Status de Pagamento</th>
@@ -78,8 +83,11 @@ export default class MostrarProducao extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
+                            <th>Itens</th>
                             <th>Quantidade total (Litros)</th>
+                            <th>Média (Litros/produção)</th>
                             <th>Valor total (R$)</th>
+                            <th>Média (R$/produção)</th>
                         </tr>
                     </thead>
                         {this.resumoProducao(this.state.producoes)}

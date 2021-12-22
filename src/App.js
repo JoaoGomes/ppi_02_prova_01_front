@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import Rotas from './Routes';
-import { AuthProvider } from './componentes/context/Auth';
+import { AuthProvider } from './Componentes/Context/Auth';
 
 function App() {
   return (

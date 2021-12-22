@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { useAuth } from '../componentes/context/Auth';
+import React from 'react';
+import { useAuth } from '../Componentes/Context/Auth';
 
 import SignRoutes from './SignRoutes';
 import OtherRoutes from './OtherRoutes';

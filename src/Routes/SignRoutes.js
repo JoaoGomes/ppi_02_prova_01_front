@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import LoginCooperado from '../pages/Login/LoginCooperado';
-import LoginEmpregado from '../pages/Login/LoginEmpregado';
-import BeforeLogin from '../pages/Login/BeforeLogin';
+import LoginCooperado from '../Pages/Login/LoginCooperado';
+import LoginEmpregado from '../Pages/Login/LoginEmpregado';
+import BeforeLogin from '../Pages/Login/BeforeLogin';
 
 const SignRoutes = () => {
     return (

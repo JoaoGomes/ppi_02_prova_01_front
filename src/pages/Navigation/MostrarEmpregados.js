@@ -2,19 +2,19 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
-export default class MostrarCooperados extends Component {
+export default class MostrarEmpregados extends Component {
     constructor(props) {
         super(props);
 
         this.onChangeNome = this.onChangeNome.bind(this);
         this.onChangeSenha = this.onChangeSenha.bind(this);
-        this.deleteCooperado = this.deleteCooperado.bind(this)
+        this.deleteEmpregado = this.deleteEmpregado.bind(this)
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             nome: '',
             senha: '',
-            produtores: [],
+            empregados: [],
         }
     }
 
@@ -30,35 +30,35 @@ export default class MostrarCooperados extends Component {
         });
     }
 
-    deleteCooperado(id) {
-        axios.delete('http://localhost:3333/produtores/'+id)
+    deleteEmpregado(id) {
+        axios.delete('http://localhost:3333/empregados/'+id)
         .then(() => {
             this.updatePage();
         })
-        .catch(() => { console.log("Erro ao deletar cooperado.")});
+        .catch(() => { console.log("Erro ao deletar empregado.")});
     
         this.setState({
-          produtores: this.state.produtores.filter(el => el._id !== id)
+          empregados: this.state.empregados.filter(el => el._id !== id)
         })
       }
 
     onSubmit(e) {
         e.preventDefault();
-        const produtor = {
+        const empregado = {
             nome: this.state.nome,
             senha: this.state.senha,
         }
 
         axios({
-            url: 'http://localhost:3333/produtores/create',
+            url: 'http://localhost:3333/empregados/create',
             method: 'POST',
-            data: produtor
+            data: empregado
         })
         .then(() => {
             this.updatePage();
             this.resetValues();
         })
-        .catch(() => { console.log("Erro ao criar cooperado.")});
+        .catch(() => { console.log("Erro ao criar empregado.")});
 
         this.setState({
             nome: '',
@@ -72,10 +72,10 @@ export default class MostrarCooperados extends Component {
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/produtores/all')
+        axios.get('http://localhost:3333/empregados/all')
         .then(response => {
             if(response.data.length > 0){
-                this.setState({ produtores: response.data
+                this.setState({ empregados: response.data
                 })
             }
         })
@@ -91,15 +91,15 @@ export default class MostrarCooperados extends Component {
           });
     }
 
-    listaCooperados = (produtores) => {
-        if(!produtores.length) return null;
-        return produtores.map((produtoratual, index) => (
+    listaEmpregados = (empregados) => {
+        if(!empregados.length) return null;
+        return empregados.map((empregadoatual, index) => (
             <tbody key={index}>
                 <tr>
-                    <td>{produtoratual.nome}</td>
-                    <td>{produtoratual._id}</td>
+                    <td>{empregadoatual.nome}</td>
+                    <td>{empregadoatual._id}</td>
                     <td><button>Editar (Não funcionando!)</button></td>
-                    <td><button onClick={() => {this.deleteCooperado(produtoratual._id)}}>Deletar</button></td>
+                    <td><button onClick={() => {this.deleteEmpregado(empregadoatual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>
         ));
@@ -108,8 +108,8 @@ export default class MostrarCooperados extends Component {
     render() {
         return (
             <div>
-            <h1>Cooperados</h1>
-            <h2>Cadastrar Novo Cooperado</h2>
+            <h1>Empregados</h1>
+            <h2>Cadastrar Novo Empregado</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                     <label>Nome: </label>
@@ -122,7 +122,7 @@ export default class MostrarCooperados extends Component {
                     </div>
                     <div className="form-group"> 
                     <label>Senha: </label>
-                    <input  type="password"
+                    <input  type="text"
                         required
                         className="form-control"
                         value={this.state.senha}
@@ -130,11 +130,11 @@ export default class MostrarCooperados extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    <input type="submit" value="Adicionar cooperado" className="btn btn-primary" />
+                    <input type="submit" value="Adicionar empregado" className="btn btn-primary" />
                     </div>
                 </form>
 
-                <h2>Lista de cooperados</h2>
+                <h2>Lista de empregados</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
@@ -142,7 +142,7 @@ export default class MostrarCooperados extends Component {
                             <th>Id</th>
                         </tr>
                     </thead>
-                        {this.listaCooperados(this.state.produtores)}
+                        {this.listaEmpregados(this.state.empregados)}
                 </table>
 
 

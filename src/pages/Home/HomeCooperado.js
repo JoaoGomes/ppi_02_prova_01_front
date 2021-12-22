@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../componentes/context/Auth';
+import { useAuth } from '../../Componentes/Context/Auth';
 
 const HomeCooperado = () => {
     const { Logout } = useAuth();
