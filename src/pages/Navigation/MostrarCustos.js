@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default class MostrarCustos extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export default class MostrarCustos extends Component {
         this.onChangeNome = this.onChangeNome.bind(this);
         this.onChangeValor = this.onChangeValor.bind(this);
         this.onChangeStatus = this.onChangeStatus.bind(this);
+        this.onChangeData = this.onChangeData.bind(this);
         this.deleteCusto = this.deleteCusto.bind(this)
         this.onSubmit = this.onSubmit.bind(this);
 
@@ -16,6 +18,7 @@ export default class MostrarCustos extends Component {
             nome: '',
             valor: '',
             status: 'false',
+            data: '',
             id_dono: localStorage.getItem(`@App:id`),
             custos: [],
         }
@@ -39,6 +42,12 @@ export default class MostrarCustos extends Component {
         });
     }
 
+    onChangeData(e) {
+        this.setState({
+            data: e.target.value
+        });
+    }
+
     deleteCusto(id) {
         axios.delete('http://localhost:3333/custo/'+id)
         .then(() => {
@@ -57,6 +66,7 @@ export default class MostrarCustos extends Component {
             nome: this.state.nome,
             valor: this.state.valor,
             status: this.state.status,
+            data: this.state.data,
             id_dono: this.state.id_dono,
         }
 
@@ -75,6 +85,7 @@ export default class MostrarCustos extends Component {
             nome: '',
             valor: '',
             status: 'false',
+            data: '',
             id_dono: JSON.parse(localStorage.getItem(`@App:id`)),
         })
     }
@@ -102,6 +113,7 @@ export default class MostrarCustos extends Component {
             nome: '',
             valor: '',
             status: 'false',
+            data: '',
             id_dono: localStorage.getItem(`@App:id`),
           });
     }
@@ -113,6 +125,7 @@ export default class MostrarCustos extends Component {
                 <tr>
                     <td>{custoatual.nome}</td>
                     <td>{custoatual.valor}</td>
+                    <td>{moment.utc(custoatual.data).format('DD/MM/YYYY')}</td>
                     <td>{custoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
                     <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteCusto(custoatual._id)}}>Deletar</button></td>
@@ -156,6 +169,7 @@ export default class MostrarCustos extends Component {
                         <tr>
                             <th>Nome</th>
                             <th>Valor</th>
+                            <th>Data</th>
                             <th>Status de Pagamento</th>
                         </tr>
                     </thead>
@@ -177,25 +191,32 @@ export default class MostrarCustos extends Component {
             <h2>Cadastrar Novo Custo</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                    <label>Nome: </label>
-                    <input  type="text"
-                        required
-                        className="form-control"
-                        value={this.state.nome}
-                        onChange={this.onChangeNome}
-                        />
+                        <label>Nome: </label>
+                        <input type="text"
+                            required
+                            className="form-control"
+                            value={this.state.nome}
+                            onChange={this.onChangeNome} />
                     </div>
                     <div className="form-group"> 
-                    <label>Valor: </label>
-                    <input  type="number"
-                        required
-                        className="form-control"
-                        value={this.state.valor}
-                        onChange={this.onChangeValor}
-                        />
+                        <label>Valor: </label>
+                        <input type="number"
+                            required
+                            className="form-control"
+                            value={this.state.valor}
+                            onChange={this.onChangeValor} />
+                    </div>
+                    <div>
+                        <label>Data: </label>
+                        <input type="date"
+                            required
+                            className="form-control"
+                            placeholder="dd-mm-yyyy"
+                            value={this.state.data}
+                            onChange={this.onChangeData} />
                     </div>
                     <div className="form-group">
-                    Pagamento:
+                    <label>Pagamento: </label>
                         <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
                             <option value="false">Não efetuado</option>
                             <option value="true">Efetuado</option>

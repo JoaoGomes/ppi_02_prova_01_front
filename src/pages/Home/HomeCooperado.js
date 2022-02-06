@@ -17,7 +17,7 @@ const HomeCooperado = () => {
                 <label><Link className="btn btn-success" to="/perfil">Perfil</Link></label><br/>
                 <label><Link className="btn btn-success" to="/custo/all">Custos</Link></label><br/>
                 <label><Link className="btn btn-success" to="/producao/all">Producão</Link></label><br/>
-                <label><Link className="btn btn-success" to="/login/cooperado">Relatórios (inativo)</Link></label><br/>
+                <label><Link className="btn btn-success" to="/relatorios/all">Relatórios</Link></label><br/>
                 <h2>Logout</h2>
                 <button onClick={handleLogout}>Logout</button>
             </container>

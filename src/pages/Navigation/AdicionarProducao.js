@@ -18,8 +18,8 @@ export default class AdicionarProducao extends Component {
             valor: '',
             status: 'false',
             id_dono: '',
-            producoes: [],
             nome: '',
+            producoes: [],
             produtores: []
         }
     }
@@ -122,10 +122,10 @@ export default class AdicionarProducao extends Component {
 
     resetValues = () =>{
         this.setState({
+            id_dono: '',
             quantidade: '',
             valor: '',
             status: 'false',
-            id_dono: '',
           });
     }
 
@@ -172,7 +172,6 @@ export default class AdicionarProducao extends Component {
                     <input  type="text"
                         required
                         className="form-control"
-                        defaultValue={this.state.id_dono}
                         onChange={this.onChangeCooperado}
                         />
                     </div>

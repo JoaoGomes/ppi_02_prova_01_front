@@ -10,6 +10,7 @@ import MostrarProducao from '../Pages/Navigation/MostrarProducao';
 import AdicionarProducao from '../Pages/Navigation/AdicionarProducao';
 import MostrarCooperados from '../Pages/Navigation/MostrarCooperados';
 import MostrarEmpregados from '../Pages/Navigation/MostrarEmpregados';
+import Relatorios from '../Pages/Navigation/Relatorios';
 
 
 const OtherRoutes = () => {
@@ -22,6 +23,7 @@ const OtherRoutes = () => {
 
                 <Route path="/custo/all" element={<MostrarCustos />} />
                 <Route path="/producao/all" element={<MostrarProducao />} />
+                <Route path="/relatorios/all" element={<Relatorios />} />
                 <Route path="/producao/create" element={<AdicionarProducao/>} />
                 <Route path="/produtores/cadastro" element={<MostrarCooperados />} />
                 <Route path="/empregados/cadastro" element={<MostrarEmpregados />} />
