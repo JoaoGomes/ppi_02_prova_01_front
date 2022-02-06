@@ -16,10 +16,13 @@ export default class MostrarCustos extends Component {
 
         this.state = {
             nome: '',
+            quantidade: '1',
             valor: '',
             status: 'false',
-            data: '',
             id_dono: localStorage.getItem(`@App:id`),
+            id_cadastrador: localStorage.getItem(`@App:id`),
+            credito: 'false',
+            data: '',
             custos: [],
         }
     }
@@ -49,7 +52,7 @@ export default class MostrarCustos extends Component {
     }
 
     deleteCusto(id) {
-        axios.delete('http://localhost:3333/custo/'+id)
+        axios.delete('http://localhost:3333/unificado/'+id)
         .then(() => {
             this.updatePage();
         })
@@ -64,14 +67,17 @@ export default class MostrarCustos extends Component {
         e.preventDefault();
         const custo = {
             nome: this.state.nome,
+            quantidade: this.state.quantidade,
             valor: this.state.valor,
             status: this.state.status,
-            data: this.state.data,
             id_dono: this.state.id_dono,
+            id_cadastrador: this.state.id_cadastrador,
+            credito: this.state.credito,
+            data: this.state.data,
         }
 
         axios({
-            url: 'http://localhost:3333/custo/create',
+            url: 'http://localhost:3333/unificado/create',
             method: 'POST',
             data: custo
         })
@@ -83,10 +89,13 @@ export default class MostrarCustos extends Component {
 
         this.setState({
             nome: '',
+            quantidade: '1',
             valor: '',
             status: 'false',
-            data: '',
             id_dono: JSON.parse(localStorage.getItem(`@App:id`)),
+            id_cadastrador: JSON.parse(localStorage.getItem(`@App:id`)),
+            credito: 'false',
+            data: '',
         })
     }
 
@@ -96,7 +105,7 @@ export default class MostrarCustos extends Component {
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/custo/'+ localStorage.getItem(`@App:id`))
+        axios.get('http://localhost:3333/unificado/custo/'+ localStorage.getItem(`@App:id`))
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ custos: response.data

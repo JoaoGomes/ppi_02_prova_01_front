@@ -28,7 +28,7 @@ export default class MostrarRelatorios extends Component {
         var priorDate = moment.utc().add(-30, 'days').format();
         console.log(priorDate);
 
-        axios.get('http://localhost:3333/unificado/'+ localStorage.getItem(`@App:id`) +'/'+ moment.utc().add(-30, 'days').format() + '/'+ moment.utc().format())
+        axios.get('http://localhost:3333/unificado/'+ localStorage.getItem(`@App:id`) +'/'+ moment.utc().add(-90, 'days').format() + '/'+ moment.utc().format())
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ unificados: response.data

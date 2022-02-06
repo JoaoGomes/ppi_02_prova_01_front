@@ -20,7 +20,7 @@ export default class MostrarProducao extends Component {
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/producao/'+ localStorage.getItem(`@App:id`))
+        axios.get('http://localhost:3333/unificado/producao/'+ localStorage.getItem(`@App:id`))
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ producoes: response.data

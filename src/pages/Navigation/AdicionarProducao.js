@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import moment from "moment";
 
 export default class AdicionarProducao extends Component {
     constructor(props) {
@@ -14,16 +15,18 @@ export default class AdicionarProducao extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         
         this.state = {
+            nome: 'PRODUÇÃO',
             quantidade: '',
             valor: '',
             status: 'false',
             id_dono: '',
-            nome: '',
+            id_cadastrador: localStorage.getItem(`@App:id`),
+            credito: 'true',
+            data: moment.utc().format(),
             producoes: [],
             produtores: []
         }
     }
-
     
     onChangeQuantidade(e) {
         this.setState({
@@ -51,7 +54,7 @@ export default class AdicionarProducao extends Component {
 
 
     deleteProducao(id) {
-        axios.delete('http://localhost:3333/producao/'+id)
+        axios.delete('http://localhost:3333/unificado/'+id)
         .then(() => {
             this.updatePage();
         })
@@ -65,14 +68,18 @@ export default class AdicionarProducao extends Component {
     onSubmit(e) {
         e.preventDefault();
         const producao = {
+            nome: this.state.nome,
             quantidade: this.state.quantidade,
             valor: this.state.valor,
             status: this.state.status,
             id_dono: this.state.id_dono,
+            id_cadastrador: this.state.id_cadastrador,
+            credito: this.state.credito,
+            data: this.state.data,
         }
 
         axios({
-            url: 'http://localhost:3333/producao/create',
+            url: 'http://localhost:3333/unificado/create',
             method: 'POST',
             data: producao
         })
@@ -91,24 +98,12 @@ export default class AdicionarProducao extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('http://localhost:3333/produtores/all')
-        .then(response => {
-          if (response.data.length > 0) {
-            this.setState({
-              produtores: response.data.map(produtor => produtor.nome),
-              nome: response.data[0].nome
-            }) 
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
         this.updatePage();
         this.resetValues();
     }
 
     updatePage = () => {
-        axios.get('http://localhost:3333/producao/all')
+        axios.get('http://localhost:3333/unificado/producao/')
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ producoes: response.data
