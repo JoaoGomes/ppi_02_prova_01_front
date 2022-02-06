@@ -9,6 +9,8 @@ export default class MostrarRelatorios extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
 
+        var tempo = null;
+
         this.state = {
             nome: '',
             quantidade: '',
@@ -22,13 +24,10 @@ export default class MostrarRelatorios extends Component {
         }
     }
 
-    updatePage = () => {
-        console.log(moment.utc().format());
-        var today = moment.utc().format();
-        var priorDate = moment.utc().add(-30, 'days').format();
-        console.log(priorDate);
-
-        axios.get('http://localhost:3333/unificado/'+ localStorage.getItem(`@App:id`) +'/'+ moment.utc().add(-90, 'days').format() + '/'+ moment.utc().format())
+    updatePage = (tempo1, tempo2) => {
+        axios.get('http://localhost:3333/unificado/'+ localStorage.getItem(`@App:id`) 
+                                                    + '/' + moment.utc().add(-tempo1, 'days').format() 
+                                                    + '/' + moment.utc().add(-tempo2, 'days').format())
         .then(response => {
             if(response.data.length > 0){
                 this.setState({ unificados: response.data
@@ -42,28 +41,10 @@ export default class MostrarRelatorios extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const unificado = {
-            nome: this.state.nome,
-            valor: this.state.valor,
-            status: this.state.status,
-            data: this.state.data,
-            id_dono: this.state.id_dono,
-        }
-
-        this.setState({
-            nome: '',
-            quantidade: '',
-            valor: '',
-            status: 'false',
-            id_dono: localStorage.getItem(`@App:id`),
-            id_cadastrador: localStorage.getItem(`@App:id`),
-            credito: '',
-            data: '',
-        })
     }
 
     componentDidMount = () => {
-        this.updatePage();
+        this.updatePage(0,0);
     }
 
     listaUnificado = (unificados) => {
@@ -112,22 +93,26 @@ export default class MostrarRelatorios extends Component {
             <h2>Selecione período do relatório</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <input type="submit" value="30 dias" className="btn btn-primary" />
-                        <input type="submit" value="60 dias" className="btn btn-primary" />
-                        <input type="submit" value="90 dias" className="btn btn-primary" />
+                        <button onClick={(e) => this.updatePage(30,0)}>30 dias</button>
+                        <button onClick={(e) => this.updatePage(60,0)}>60 dias</button>
+                        <button onClick={(e) => this.updatePage(90,0)}>90 dias</button>
+                    </div>
+                    <div>
                         <label>Período </label>
                         <input type="date"
-                            required
                             className="form-control"
-                            value={this.state.data}
-                            onChange={this.onChangeData} />
-                            <input type="date"
-                            required
+                            id='tempo1' />
+                        <input type="date"
                             className="form-control"
-                            value={this.state.data}
-                            onChange={this.onChangeData} />
-                    <input type="submit" value="Selecionar" className="btn btn-primary" />
+                            id='tempo2' />
                     </div>
+                    <div className="form-group">
+                    <button onClick={(e) => this.updatePage(moment.utc().diff(moment((document.getElementById('tempo1').value), 'YYYY_MM_DD'), 'days'), 
+                                                            moment.utc().diff(moment((document.getElementById('tempo2').value), 'YYYY_MM_DD'), 'days'))}>
+                        Selecionar</button>
+                    
+                    </div>
+
                 </form> 
                 
                 <table className="table">
