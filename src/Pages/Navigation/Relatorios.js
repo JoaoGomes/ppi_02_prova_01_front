@@ -9,8 +9,6 @@ export default class MostrarRelatorios extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
 
-        var tempo = null;
-
         this.state = {
             nome: '',
             quantidade: '',
