@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 export default class MostrarProducao extends Component {
     constructor(props) {
@@ -94,8 +95,13 @@ export default class MostrarProducao extends Component {
                     </thead>
                         {this.resumoProducao(this.state.producoes)}
                 </table>
-
-            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+            <div>
+                <Link to="/login/Cooperado">
+                    <Button>
+                        <p>Menu principal</p>
+                    </Button>
+                </Link>
+                </div>
             </div>
         )
     }

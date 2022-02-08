@@ -12,7 +12,7 @@ const HomeEmpregado = () => {
     return (
         <div>
             <h1>Planilha de custos digitais - Cooperativa Santa Clara</h1>
-                <h2>Rotas - Empregado</h2>
+                <h2>Menu - Empregado</h2>
                 <label><Link className="btn btn-success" to="/producao/create">Produção</Link></label><br/>
                 <label><Link className="btn btn-success" to="/produtores/cadastro">Cooperados</Link></label><br/>
                 <label><Link className="btn btn-success" to="/empregados/cadastro">Empregados</Link></label><br/>

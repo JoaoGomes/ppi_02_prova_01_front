@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { Button } from 'react-bootstrap';
 import '../../Componentes/Styles/table.styles.css';
 
 export default class MostrarCustos extends Component {
@@ -64,6 +65,18 @@ export default class MostrarCustos extends Component {
         })
       }
 
+    editaCusto(id) {
+        axios.delete('http://localhost:3333/unificado/'+id)
+        .then(() => {
+            this.updatePage();
+        })
+        .catch(() => { console.log("Erro ao deletar custo.")});
+    
+        this.setState({
+          custos: this.state.custos.filter(el => el._id !== id)
+        })
+    }
+      
     onSubmit(e) {
         e.preventDefault();
         const custo = {
@@ -137,7 +150,6 @@ export default class MostrarCustos extends Component {
                     <td>R$ {custoatual.valor}</td>
                     <td>{moment.utc(custoatual.data).format('DD/MM/YYYY')}</td>
                     <td>{custoatual.status ? (<div>Pago</div>) : (<div style={{color: "red"}}>Não pago</div>)}</td>
-                    <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteCusto(custoatual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>
@@ -184,7 +196,7 @@ export default class MostrarCustos extends Component {
                         {this.listaCusto(this.state.custos)}
                 </table>
 
-                <h2>Balanço</h2>
+            <h2>Balanço</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <th>Total de itens</th>
@@ -193,7 +205,6 @@ export default class MostrarCustos extends Component {
                         <th>Total de custos</th>
                     </thead>
                         {this.resumoCustos(this.state.custos)}    
-
                 </table>
 
             <h2>Cadastrar Novo Custo</h2>
@@ -243,7 +254,14 @@ export default class MostrarCustos extends Component {
                     </table>
                 </form>
 
-            <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+                <div>
+                <Link to="/login/Cooperado">
+                    <Button>
+                        <p>Menu principal</p>
+                    </Button>
+                </Link>
+                </div>
+
             </div>
         )
     }

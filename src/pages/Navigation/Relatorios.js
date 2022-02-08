@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { Button } from 'react-bootstrap';
 
 export default class MostrarRelatorios extends Component {
     constructor(props) {
@@ -106,8 +107,6 @@ export default class MostrarRelatorios extends Component {
                         <input type="date"
                             className="form-control"
                             id='tempo2' />
-                    </div>
-                    <div className="form-group">
                     <button onClick={(e) => this.updatePage(moment.utc().diff(moment((document.getElementById('tempo1').value), 'YYYY_MM_DD'), 'days'), 
                                                             moment.utc().diff(moment((document.getElementById('tempo2').value), 'YYYY_MM_DD'), 'days'))}>
                         Selecionar</button>
@@ -116,7 +115,7 @@ export default class MostrarRelatorios extends Component {
             </div>
 
             <h2>Listagem de eventos</h2>
-            <div style={{padding: "15 px"}}>
+            <div>
                 <table className="table">
                     <thead className="thead-light">
                         <th>Evento</th>
@@ -138,7 +137,13 @@ export default class MostrarRelatorios extends Component {
                         {this.resumoUnificados(this.state.unificados)}    
                 </table>
 
-                <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+                <div>
+                <Link to="/login/Cooperado">
+                    <Button>
+                        <p>Menu principal</p>
+                    </Button>
+                </Link>
+                </div>
             </div>
             </div>
         )

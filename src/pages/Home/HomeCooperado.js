@@ -13,7 +13,7 @@ const HomeCooperado = () => {
         <div>
             <h1>Planilha de custos digitais - Cooperativa Santa Clara</h1>
             <container>
-                <h2>Rotas - Cooperado</h2>
+                <h2>Menu - Cooperado</h2>
                 <label><Link className="btn btn-success" to="/perfil">Perfil</Link></label><br/>
                 <label><Link className="btn btn-success" to="/custo/all">Custos</Link></label><br/>
                 <label><Link className="btn btn-success" to="/producao/all">Producão</Link></label><br/>

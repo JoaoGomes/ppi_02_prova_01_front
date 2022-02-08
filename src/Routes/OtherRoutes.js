@@ -6,6 +6,7 @@ import HomeEmpregado from '../Pages/Home/HomeEmpregado';
 import Produtor from '../Pages/Navigation/PerfilProdutor';
 
 import MostrarCustos from '../Pages/Navigation/MostrarCustos';
+import EditarCustos from '../Pages/Navigation/EditarCustos';
 import MostrarProducao from '../Pages/Navigation/MostrarProducao';
 import AdicionarProducao from '../Pages/Navigation/AdicionarProducao';
 import MostrarCooperados from '../Pages/Navigation/MostrarCooperados';
@@ -22,6 +23,7 @@ const OtherRoutes = () => {
                 <Route path="/perfil" element={<Produtor />} />
 
                 <Route path="/custo/all" element={<MostrarCustos />} />
+                <Route path="/custo/editar" element={<EditarCustos />} />
                 <Route path="/producao/all" element={<MostrarProducao />} />
                 <Route path="/relatorios/all" element={<Relatorios />} />
                 <Route path="/producao/create" element={<AdicionarProducao/>} />

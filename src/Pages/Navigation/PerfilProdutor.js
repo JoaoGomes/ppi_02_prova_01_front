@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Componentes/Context/Auth';
+import { Button } from 'react-bootstrap';
 
 
 function Produtor() {
@@ -15,11 +16,13 @@ function Produtor() {
             <h1>Perfil do usuário</h1>
             <h2>Produtor {localStorage.getItem(`@App:user`)}</h2>
             <br/>
-            <button>Editar (inativo!)</button>
-            <br/>
             <button onClick={handleLogout}>Logout</button>
             <br/>
-            <Link to="/login/cooperado" className="btn mainMenuBtn" >Menu principal</Link>
+            <Link to="/login/Cooperado">
+                    <Button>
+                        <p>Menu principal</p>
+                    </Button>
+                </Link>
         </div>
     );
 }

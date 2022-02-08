@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 export default class MostrarCooperados extends Component {
     constructor(props) {
@@ -146,7 +147,12 @@ export default class MostrarCooperados extends Component {
                 </table>
 
 
-            <Link to="/login/Empregado" className="btn mainMenuBtn" >Menu principal</Link>
+                <Link to="/login/Empregado">
+                    <Button>
+                        <p>Menu principal</p>
+                    </Button>
+                </Link>
+
             </div>
         )
     }

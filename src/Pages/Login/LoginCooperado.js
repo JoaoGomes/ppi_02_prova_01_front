@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Componentes/Context/Auth';
+import { Button } from 'react-bootstrap';
 
 const initialState = {
     id: '',
@@ -40,11 +41,19 @@ function FormLoginCooperado () {
                 <label>Senha: 
                     <input  type='password' name='senha' defaultValue={senha} onChange={onChange} />
                 </label>
-                <Link type="submit" onClick={handleSubmit} className="btn btn-success" to="/">
-                    Acessar
+                <Link type="submit" onClick={handleSubmit} to="/">
+                    <Button>
+                        <p>Acessar</p>
+                    </Button>
                 </Link>
             </form>
-            <Link className="btn mainMenuBtn" to="/">Página inicial</Link>
+
+            <Link to="/">
+                <Button>
+                    <p>Página inicial</p>
+                </Button>
+            </Link>
+            <br/>
         </div>
     );
 };
