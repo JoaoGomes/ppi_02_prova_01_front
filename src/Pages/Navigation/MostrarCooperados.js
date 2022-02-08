@@ -99,7 +99,6 @@ export default class MostrarCooperados extends Component {
                 <tr>
                     <td>{produtoratual.nome}</td>
                     <td>{produtoratual._id}</td>
-                    <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteCooperado(produtoratual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>

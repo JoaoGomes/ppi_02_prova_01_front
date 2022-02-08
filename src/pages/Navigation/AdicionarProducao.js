@@ -135,7 +135,6 @@ export default class AdicionarProducao extends Component {
                     <td>R$ {producaoatual.valor}</td>
                     <td>{producaoatual.status ? (<div>Pago</div>) : (<div  style={{color: "red"}}>Não pago</div>)}</td>
                     <td>{producaoatual.id_dono}</td>
-                    <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteProducao(producaoatual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>

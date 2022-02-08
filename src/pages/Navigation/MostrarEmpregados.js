@@ -99,7 +99,6 @@ export default class MostrarEmpregados extends Component {
                 <tr>
                     <td>{empregadoatual.nome}</td>
                     <td>{empregadoatual._id}</td>
-                    <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteEmpregado(empregadoatual._id)}}>Deletar</button></td>
                 </tr>
             </tbody>
