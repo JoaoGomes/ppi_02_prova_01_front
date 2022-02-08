@@ -13,10 +13,12 @@ function Produtor() {
     return (
         <div>
             <h1>Perfil do usuário</h1>
-            <h2>{localStorage.getItem(`@App:user`)}</h2>
-            <p>Botão de logout</p>
+            <h2>Produtor {localStorage.getItem(`@App:user`)}</h2>
+            <br/>
+            <button>Editar (inativo!)</button>
+            <br/>
             <button onClick={handleLogout}>Logout</button>
-            <button>Editar</button>
+            <br/>
             <Link to="/login/cooperado" className="btn mainMenuBtn" >Menu principal</Link>
         </div>
     );

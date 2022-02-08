@@ -38,9 +38,9 @@ export default class MostrarProducao extends Component {
             <tbody key={index}>
                 <tr>
                     <td>{index+1}</td>
-                    <td>{producaoatual.quantidade}</td>
-                    <td>{producaoatual.valor}</td>
-                    <td>{producaoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                    <td>{producaoatual.quantidade} litros</td>
+                    <td>R$ {producaoatual.valor}</td>
+                    <td>{producaoatual.status ? (<div>Pago</div>) : (<div style={{color: "red"}}>Não pago</div>)}</td>
                 </tr>
             </tbody>
         ));
@@ -51,14 +51,17 @@ export default class MostrarProducao extends Component {
 
         const totalValor =  producoes.reduce((total, item) => total = total + item.valor, 0);
 
+        const mediaLeite = totalValor/totalQuantidade;
+
         return (
             <tbody>
                 <tr>
                     <td>{producoes.length}</td>
-                    <td>{totalQuantidade}</td>
-                    <td>{totalQuantidade/producoes.length}</td>
-                    <td>{totalValor}</td>
-                    <td>{totalValor/producoes.length}</td>
+                    <td>{totalQuantidade} litros</td>
+                    <td>{totalQuantidade/producoes.length} litros/entrega</td>
+                    <td>R$ {totalValor}</td>
+                    <td>R$ {totalValor/producoes.length}/entrega</td>
+                    <td>R$ {mediaLeite.toFixed(2)}/litro</td>
                 </tr>
             </tbody>
         )
@@ -71,24 +74,23 @@ export default class MostrarProducao extends Component {
             <h2>{localStorage.getItem(`@App:user`)}</h2>
                 <table className="table">
                     <thead className="thead-light">
-                        <tr>
                             <th>Item</th>
-                            <th>Quantidade (Litros)</th>
-                            <th>Valor (R$)</th>
+                            <th>Quantidade</th>
+                            <th>Valor</th>
                             <th>Status de Pagamento</th>
-                        </tr>
                     </thead>
                         {this.listaProducao(this.state.producoes)}
                 </table>
+
+                <h2>Balanço</h2>
                 <table className="table">
                     <thead className="thead-light">
-                        <tr>
                             <th>Itens</th>
-                            <th>Quantidade total (Litros)</th>
-                            <th>Média (Litros/produção)</th>
-                            <th>Valor total (R$)</th>
-                            <th>Média (R$/produção)</th>
-                        </tr>
+                            <th>Quantidade total</th>
+                            <th>Média de produção</th>
+                            <th>Receita total</th>
+                            <th>Média de receita</th>
+                            <th>Preço médio do leite</th>
                     </thead>
                         {this.resumoProducao(this.state.producoes)}
                 </table>

@@ -130,9 +130,9 @@ export default class AdicionarProducao extends Component {
         return producoes.map((producaoatual, index) => (
             <tbody key={index}>
                 <tr>
-                    <td>{producaoatual.quantidade}</td>
-                    <td>{producaoatual.valor}</td>
-                    <td>{producaoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                    <td>{producaoatual.quantidade} litros</td>
+                    <td>R$ {producaoatual.valor}</td>
+                    <td>{producaoatual.status ? (<div>Pago</div>) : (<div  style={{color: "red"}}>Não pago</div>)}</td>
                     <td>{producaoatual.id_dono}</td>
                     <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteProducao(producaoatual._id)}}>Deletar</button></td>
@@ -149,8 +149,8 @@ export default class AdicionarProducao extends Component {
         return (
             <tbody>
                 <tr>
-                    <td>{totalQuantidade}</td>
-                    <td>{totalValor}</td>
+                    <td>{totalQuantidade} litros</td>
+                    <td>R$ {totalValor}</td>
                 </tr>
             </tbody>
         )
@@ -162,51 +162,58 @@ export default class AdicionarProducao extends Component {
             <h1>Produção</h1>
             <h2>Cadastrar Nova Produção</h2>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
-                    <label>Produtor: </label>
-                    <input  type="text"
-                        required
-                        className="form-control"
-                        onChange={this.onChangeCooperado}
-                        />
-                    </div>
-                    <div className="form-group"> 
-                    <label>Quantidade (litros): </label>
-                    <input  type="text"
-                        required
-                        className="form-control"
-                        value={this.state.quantidade}
-                        onChange={this.onChangeQuantidade}
-                        />
-                    </div>
-                    <div className="form-group"> 
-                    <label>Valor (R$): </label>
-                    <input  type="number"
-                        required
-                        className="form-control"
-                        value={this.state.valor}
-                        onChange={this.onChangeValor}
-                        />
-                    </div>
-                    <div className="form-group">
-                    <label>Pagamento: </label>
-                        <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
-                            <option value="false">Não efetuado</option>
-                            <option value="true">Efetuado</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Adicionar produção" className="btn btn-primary" />
-                    </div>
+                    <table className="table-cost">
+                        <thead>
+                            <th>Produtor</th>
+                            <th>Quantidade (litros)</th>
+                            <th>Valor (R$)</th>
+                            <th>Pagamento</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input  type="text"
+                                        required
+                                        className="form-control"
+                                        onChange={this.onChangeCooperado}
+                                        />
+                                </td>
+                                <td>
+                                    <input  type="text"
+                                        required
+                                        className="form-control"
+                                        value={this.state.quantidade}
+                                        onChange={this.onChangeQuantidade}
+                                        />
+                                </td>
+                                <td>
+                                    <input  type="number"
+                                        required
+                                        className="form-control"
+                                        value={this.state.valor}
+                                        onChange={this.onChangeValor}
+                                        />
+                                </td>
+                                <td>
+                                    <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
+                                        <option value="false">Não efetuado</option>
+                                        <option value="true">Efetuado</option>
+                                    </select>
+                                </td>
+                                <div className="form-group">
+                                    <input type="submit" value="Adicionar produção" className="btn btn-primary" />
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
 
                 <h2>Lista de Produções</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Quantidade (litros): </th>
-                            <th>Valor (R$): </th>
+                            <th>Quantidade</th>
+                            <th>Valor</th>
                             <th>Status de Pagamento</th>
                             <th>Id do Produtor</th>
                         </tr>
@@ -214,11 +221,12 @@ export default class AdicionarProducao extends Component {
                         {this.listaProducao(this.state.producoes)}
                 </table>
 
+                <h2>Balanço</h2>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Quantidade total (litros): </th>
-                            <th>Valor totais(R$): </th>
+                            <th>Quantidade total </th>
+                            <th>Valor total</th>
                         </tr>
                     </thead>
                         {this.resumoProducao(this.state.producoes)}

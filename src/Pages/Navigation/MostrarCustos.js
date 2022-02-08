@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import '../../Componentes/Styles/table.styles.css';
 
 export default class MostrarCustos extends Component {
     constructor(props) {
@@ -133,9 +134,9 @@ export default class MostrarCustos extends Component {
             <tbody key={index}>
                 <tr>
                     <td>{custoatual.nome}</td>
-                    <td>{custoatual.valor}</td>
+                    <td>R$ {custoatual.valor}</td>
                     <td>{moment.utc(custoatual.data).format('DD/MM/YYYY')}</td>
-                    <td>{custoatual.status ? (<div>Pago</div>) : (<div>Não pago</div>)}</td>
+                    <td>{custoatual.status ? (<div>Pago</div>) : (<div style={{color: "red"}}>Não pago</div>)}</td>
                     <td><button>Editar (Não funcionando!)</button></td>
                     <td><button onClick={() => {this.deleteCusto(custoatual._id)}}>Deletar</button></td>
                 </tr>
@@ -160,9 +161,9 @@ export default class MostrarCustos extends Component {
             <tbody>
                 <tr>
                     <td>{custos.length}</td>
-                    <td>{totalPago}</td>
-                    <td>{totalNaoPago}</td>
-                    <td>{totalPago+totalNaoPago}</td>
+                    <td>R$ {totalPago}</td>
+                    <td style={{color: "red"}}>R$ -{totalNaoPago}</td>
+                    <td>R$ {totalPago+totalNaoPago}</td>
                 </tr>
             </tbody>
         )
@@ -175,23 +176,21 @@ export default class MostrarCustos extends Component {
             <h2>Lista de custos</h2>
                 <table className="table">
                     <thead className="thead-light">
-                        <tr>
                             <th>Nome</th>
                             <th>Valor</th>
                             <th>Data</th>
                             <th>Status de Pagamento</th>
-                        </tr>
                     </thead>
                         {this.listaCusto(this.state.custos)}
                 </table>
+
+                <h2>Balanço</h2>
                 <table className="table">
                     <thead className="thead-light">
-                        <tr>
-                            <th>Total de itens</th>
-                            <th>Valores pagos</th>
-                            <th>Valores não pagos</th>
-                            <th>Total de custos</th>
-                        </tr>
+                        <th>Total de itens</th>
+                        <th>Valores pagos</th>
+                        <th>Valores não pagos</th>
+                        <th>Total de custos</th>
                     </thead>
                         {this.resumoCustos(this.state.custos)}    
 
@@ -199,41 +198,49 @@ export default class MostrarCustos extends Component {
 
             <h2>Cadastrar Novo Custo</h2>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
-                        <label>Nome: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.nome}
-                            onChange={this.onChangeNome} />
-                    </div>
-                    <div className="form-group"> 
-                        <label>Valor: </label>
-                        <input type="number"
-                            required
-                            className="form-control"
-                            value={this.state.valor}
-                            onChange={this.onChangeValor} />
-                    </div>
-                    <div>
-                        <label>Data: </label>
-                        <input type="date"
-                            required
-                            className="form-control"
-                            placeholder="dd-mm-yyyy"
-                            value={this.state.data}
-                            onChange={this.onChangeData} />
-                    </div>
-                    <div className="form-group">
-                    <label>Pagamento: </label>
-                        <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
-                            <option value="false">Não efetuado</option>
-                            <option value="true">Efetuado</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                    <input type="submit" value="Adicionar custo" className="btn btn-primary" />
-                    </div>
+                    <table className="table-cost">
+                        <thead>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Pagamento</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text"
+                                        required
+                                        className="form-control"
+                                        value={this.state.nome}
+                                        onChange={this.onChangeNome} />
+                                </td>
+                                <td>
+                                    <input type="number"
+                                        required
+                                        className="form-control"
+                                        value={this.state.valor}
+                                        onChange={this.onChangeValor} />
+                                </td>
+                                <td>
+                                    <input type="date"
+                                        required
+                                        className="form-control"
+                                        placeholder="dd-mm-yyyy"
+                                        value={this.state.data}
+                                        onChange={this.onChangeData} />
+                                </td>
+                                <td>
+                                    <select className="status" name='status' defaultValue={false} onChange={this.onChangeStatus}>
+                                        <option value="false">Não efetuado</option>
+                                        <option value="true">Efetuado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Adicionar custo" className="btn btn-primary" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
 
             <Link to="/login/Cooperado" className="btn mainMenuBtn" >Menu principal</Link>
