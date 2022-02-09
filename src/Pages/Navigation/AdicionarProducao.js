@@ -133,6 +133,7 @@ export default class AdicionarProducao extends Component {
                 <tr>
                     <td>{producaoatual.quantidade} litros</td>
                     <td>R$ {producaoatual.valor}</td>
+                    <td>R$ {(producaoatual.valor/producaoatual.quantidade).toFixed(2)}</td>
                     <td>{producaoatual.status ? (<div>Pago</div>) : (<div  style={{color: "red"}}>Não pago</div>)}</td>
                     <td>{producaoatual.id_dono}</td>
                     <td><button onClick={() => {this.deleteProducao(producaoatual._id)}}>Deletar</button></td>
@@ -151,6 +152,7 @@ export default class AdicionarProducao extends Component {
                 <tr>
                     <td>{totalQuantidade} litros</td>
                     <td>R$ {totalValor}</td>
+                    <td>R$ {(totalValor/totalQuantidade).toFixed(2)}</td>
                 </tr>
             </tbody>
         )
@@ -214,6 +216,7 @@ export default class AdicionarProducao extends Component {
                         <tr>
                             <th>Quantidade</th>
                             <th>Valor</th>
+                            <th>Preço médio do leite</th>
                             <th>Status de Pagamento</th>
                             <th>Id do Produtor</th>
                         </tr>
@@ -227,6 +230,7 @@ export default class AdicionarProducao extends Component {
                         <tr>
                             <th>Quantidade total </th>
                             <th>Valor total</th>
+                            <th>Preço médio do leite</th>
                         </tr>
                     </thead>
                         {this.resumoProducao(this.state.producoes)}
