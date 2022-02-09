@@ -42,6 +42,7 @@ export default class MostrarProducao extends Component {
                     <td>{index+1}</td>
                     <td>{producaoatual.quantidade} litros</td>
                     <td>R$ {producaoatual.valor}</td>
+                    <td>R$ {(producaoatual.valor/producaoatual.quantidade).toFixed(2)}</td>
                     <td>{producaoatual.status ? (<div>Pago</div>) : (<div style={{color: "red"}}>Não pago</div>)}</td>
                     <td>{moment.utc(producaoatual.data).format('DD/MM/YYYY')}</td>
                 </tr>
@@ -80,6 +81,7 @@ export default class MostrarProducao extends Component {
                             <th>Item</th>
                             <th>Quantidade</th>
                             <th>Valor</th>
+                            <th>Preço médio do leite</th>
                             <th>Status de Pagamento</th>
                             <th>Data</th>
                     </thead>
