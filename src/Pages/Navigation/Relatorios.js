@@ -80,7 +80,7 @@ export default class MostrarRelatorios extends Component {
                 <tr>
                     <td>{unificados.length}</td>
                     <td>R$ {totalRecebido}</td>
-                    <td>{totalPago == 0 ? (<p>R$ {totalPago}</p>) : (<p  style={{color: "red"}}>R$ -{totalPago}</p>)}</td>
+                    <td>{totalPago === 0 ? (<p>R$ {totalPago}</p>) : (<p  style={{color: "red"}}>R$ -{totalPago}</p>)}</td>
                     <td>{totalFinal > -0.01 ? (<p>R$ {totalFinal}</p>) : (<p  style={{color: "red"}}>R$ {totalFinal}</p>)}</td>
                 </tr>
             </tbody>
