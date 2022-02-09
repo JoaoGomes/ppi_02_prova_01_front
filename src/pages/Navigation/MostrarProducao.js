@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import moment from 'moment';
 
 export default class MostrarProducao extends Component {
     constructor(props) {
@@ -42,6 +43,7 @@ export default class MostrarProducao extends Component {
                     <td>{producaoatual.quantidade} litros</td>
                     <td>R$ {producaoatual.valor}</td>
                     <td>{producaoatual.status ? (<div>Pago</div>) : (<div style={{color: "red"}}>Não pago</div>)}</td>
+                    <td>{moment.utc(producaoatual.data).format('DD/MM/YYYY')}</td>
                 </tr>
             </tbody>
         ));
@@ -79,6 +81,7 @@ export default class MostrarProducao extends Component {
                             <th>Quantidade</th>
                             <th>Valor</th>
                             <th>Status de Pagamento</th>
+                            <th>Data</th>
                     </thead>
                         {this.listaProducao(this.state.producoes)}
                 </table>
